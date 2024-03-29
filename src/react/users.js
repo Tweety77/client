@@ -1,4 +1,3 @@
-import '../index.css';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import avatar from "../images/avatar.jpg";
@@ -19,13 +18,13 @@ function UsersList() {
   })
 
   return (
-    <div className='cont'>
-        <div className='users'>
+    <div className='flex min-h-screen bg-slate-100 justify-center pt-11'>
+        <div className='w-1/2 h-min m-5 bg-white rounded shadow'>
           <ul>
             {users.map((username) =>{
-              return <li key={username.idUser} className='liObj'>
-                <img src={avatar} className='logoNav2' alt='avatar'></img>
-                {username.FirstName + " " + username.LastName}
+              return <li key={username.idUser} className='flex mb-3 text-lg'>
+                <img src={avatar} className='size-10 rounded-full m-1' alt='avatar'></img>
+                <div className='content-center'>{username.FirstName + " " + username.LastName}</div>
                 </li>
             })}
             {error ? <p>{error}</p>: null}

@@ -9,12 +9,13 @@ export default function Layout() {
     
     return (
         <>
-        
-            <Header />
             {loggedIn ? 
-                <SideBar />
-                    :
-                    null
+                <>
+                    <Header />
+                    <SideBar />
+                </>
+                :
+                null
             }
             <Outlet />
         </>

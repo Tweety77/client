@@ -14,35 +14,35 @@ export default function SideBar() {
     }
 
     return (
-        <div  className='SideBar'>
-            <Link className="sideNav" to="/users">
-                <div className="sideContent">
-                    <img src={profile} className='logoNav' alt='profile-icon'></img>
+        <div  className='fixed w-1/12 top-14 text-zinc-700 text-2xl'>
+            <Link to="/users">
+                <div className="nav-button">
+                    <img src={profile} className='size-10 m-1 mx-2 rounded-full' alt='profile-icon'></img>
                     <p>Users</p>
                 </div>
             </Link>
-            <Link className="sideNav" to="/">
-                <div className="sideContent">
-                    <img src={post} className='logoNav1' alt='posts-icon'></img>
+            <Link  to="/posts">
+                <div className="nav-button">
+                    <img src={post} className='size-10 m-1 mx-2 rounded-lg' alt='posts-icon'></img>
                     <p>Posts</p>
                 </div>
             </Link>
-            <Link className="sideNav">
-                <div className="sideContent" onClick={redirect}>
-                    <img src={logouticon} className='logoNav' alt='logout-icon'></img>
+            <Link>
+                <div className="nav-button" onClick={redirect}>
+                    <img src={logouticon} className='size-10 m-1 mx-2 rounded-full' alt='logout-icon'></img>
                     <p>Log out</p>
                 </div>
             </Link>
             {isOpen && (
-                <div className='PopUpCont'>
-                    <div className="PopUp" >
+                    <div className="fixed left-1/3 w-1/3 bg-white text-center rounded border shadow py-5" >
                         <p>Are you sure you want to log out?</p>
-                        <div className="PopUpButtons">
-                            <button onClick={() => {dispatch(logout()); redirect()}}>Sure</button>
-                            <button onClick={redirect}>Cancel</button>
+                        <div className="flex justify-evenly pt-4">
+                            <Link to="/">
+                                <button className="py-1 px-4 bg-blue-600 text-white hover:bg-blue-500" onClick={() => {dispatch(logout()); redirect()}}>Sure</button>
+                            </Link>
+                            <button className="py-1 px-4 bg-blue-600 text-white hover:bg-blue-500" onClick={redirect}>Cancel</button>
                         </div>
                     </div>
-                </div>
             )}
         </div>
     )

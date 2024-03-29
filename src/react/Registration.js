@@ -1,4 +1,3 @@
-import '../index.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signup } from '../store/authSlice';
@@ -27,14 +26,14 @@ function Registration() {
     }
 
     return(
-      <form className="Form2" onSubmit={submitHandler}>
-      <input type="text" placeholder="First name" value={FirstName} onChange={(e) => setFirstName(e.target.value)} required></input>
-      <input type="text" placeholder="Last name" value={LastName} onChange={(e) => setLastName(e.target.value)} required></input>
-      <input type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required></input>
-      <input type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required></input>
-      <button type='submit' className="signButton">Sign up</button>
+      <form className="flex flex-col" onSubmit={submitHandler}>
+      <input className="reg-button" type="text" placeholder="First name" value={FirstName} onChange={(e) => setFirstName(e.target.value)} required></input>
+      <input className="reg-button" type="text" placeholder="Last name" value={LastName} onChange={(e) => setLastName(e.target.value)} required></input>
+      <input className="reg-button" type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required></input>
+      <input className="reg-button" type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required></input>
+      <button className="reg-button bg-blue-600 text-white font-bold hover:bg-blue-500 text-xl" type='submit'>Sign up</button>
       {error ? <p>{error}</p>: null}
-      {user ? <Navigate to='/' replace={true} />: null}
+      {user ? <Navigate to='/posts' replace={true} />: null}
       </form>
 )}
 
