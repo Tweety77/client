@@ -4,11 +4,10 @@ import React from "react";
 
 function Reg() {
     let [change, setChange] = React.useState(<Authorization />)
-    function redirect(){
-        setChange(prevState => !prevState)
-    }
+    const redirect = () => setChange(prevState => !prevState)
+
   return (
-<div className=" flex justify-evenly bg-slate-100 h-screen pt-48">
+    <div className=" flex justify-evenly bg-slate-100 h-screen pt-48">
         <div className="w-1/4">
             <p className='text-4xl text-blue-600 font-bold'>
                 facebook

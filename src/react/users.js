@@ -23,7 +23,7 @@ function UsersList() {
           <ul>
             {users.map((username) =>{
               return <li key={username.idUser} className='flex mb-3 text-lg'>
-                <img src={avatar} className='size-10 rounded-full m-1' alt='avatar'></img>
+                <img src={avatar} className='size-10 rounded-full m-1' alt='avatar'/>
                 <div className='content-center'>{username.FirstName + " " + username.LastName}</div>
                 </li>
             })}

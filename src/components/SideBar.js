@@ -9,27 +9,25 @@ import logouticon from "../images/logouticon.png";
 export default function SideBar() {
     const dispatch = useDispatch()
     let [isOpen, setIsOpen] = useState(false);
-    function redirect(){
-        setIsOpen(prevState => !prevState)
-    }
+    const redirect = () => setIsOpen(prevState => !prevState)
 
     return (
         <div  className='fixed w-1/12 top-14 text-zinc-700 text-2xl'>
             <Link to="/users">
                 <div className="nav-button">
-                    <img src={profile} className='size-10 m-1 mx-2 rounded-full' alt='profile-icon'></img>
+                    <img src={profile} className='size-10 m-1 mx-2 rounded-full' alt='profile-icon'/>
                     <p>Users</p>
                 </div>
             </Link>
             <Link  to="/posts">
                 <div className="nav-button">
-                    <img src={post} className='size-10 m-1 mx-2 rounded-lg' alt='posts-icon'></img>
+                    <img src={post} className='size-10 m-1 mx-2 rounded-lg' alt='posts-icon'/>
                     <p>Posts</p>
                 </div>
             </Link>
             <Link>
                 <div className="nav-button" onClick={redirect}>
-                    <img src={logouticon} className='size-10 m-1 mx-2 rounded-full' alt='logout-icon'></img>
+                    <img src={logouticon} className='size-10 m-1 mx-2 rounded-full' alt='logout-icon'/>
                     <p>Log out</p>
                 </div>
             </Link>
