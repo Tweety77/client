@@ -8,7 +8,7 @@ export default function Post() {
       const [error, setError] =useState(null)
     
       useEffect(() =>{  
-        axios.get('http://localhost:8080/getposts')
+        axios.get(`${process.env.REACT_APP_API}/getposts`)
         .then(res =>{
           let publications = []
           res.data.forEach(post => publications.push(post))

@@ -11,7 +11,7 @@ function Posts() {
   const redirect = () => setIsOpen(prevState => !prevState)
 
   const submitHandler = () => {
-    axios.post('http://localhost:8080/createpost', {text: textarea, userId: userId})
+    axios.post(`${process.env.REACT_APP_API}/createpost`, {text: textarea, userId: userId})
     .then(() =>{
       setTextarea('')
     })

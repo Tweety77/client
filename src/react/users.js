@@ -7,7 +7,7 @@ function UsersList() {
   const [error, setError] =useState(null)
 
   useEffect(() =>{
-    axios.get('http://localhost:8080/getusers')
+    axios.get(`${process.env.REACT_APP_API}/getusers`)
     .then(res =>{
       let usernames = []
       res.data.forEach(user => usernames.push(user))
