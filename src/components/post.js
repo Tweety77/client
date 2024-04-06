@@ -13,14 +13,14 @@ export default function Post() {
           let publications = []
           res.data.forEach(post => publications.push(post))
           setPosts(publications)
-          setError(null)  
+          setError(null)
         })
         .catch(err => setError('Couldn`t display posts'))
-      })
+      },[])
 
     return(
         posts.map((post) =>{
-            return <div className='bg-white mt-2 rounded shadow' key={post.postId}>
+            return <div className='bg-white mt-2 rounded shadow' key={post.PostId}>
             <div className='flex border-b'>
                 <img className='size-10 m-1 rounded-full' src={avatar} alt='avatar'/>
                 <div>
