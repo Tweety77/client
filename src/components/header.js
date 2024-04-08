@@ -6,21 +6,17 @@ import avatar from "../images/avatar.jpg";
 
 export default function Header() {
     const user = useSelector((state) => state.auth.user)
-    const loggedIn = useSelector((state) => state.auth.isLoggedIn)
+
     return (
         <header>
-            <div className='Header'>
-                <Link className="site-logo" to="/">
-                    <img src={logo} className='logo' alt='LOGO'></img>
+            <div className='flex bg-white fixed justify-between w-full text-center shadow'>
+                <Link to="/">
+                    <img src={logo} className='size-10 mx-4 my-2' alt='LOGO'/>
                 </Link>
-                {loggedIn ? 
-                    <p className='navReg'>
-                        <img src={avatar} className='logoNav2' alt='avatar'></img>
-                        {user}
-                    </p>
-                    :
-                    <Link className='navReg' to="/Reg">Log in</Link>
-                }
+                <p className='flex my-2 mx-3 px-3 text-3xl'>
+                    <img src={avatar} className='size-10 rounded-full mr-1' alt='avatar'/>
+                    {user}
+                </p>
             </div>
         </header>
     )

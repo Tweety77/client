@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export const signup = createAsyncThunk('auth/signup', async({FirstName, LastName, Email, Password}, thunkAPI) =>{
     try{
-        const res = await axios.post('http://localhost:8080/signup', {FirstName, LastName, Email, Password})
+        const res = await axios.post(`${process.env.REACT_APP_API}/signup`, {FirstName, LastName, Email, Password})
         return res.data
     }catch (err){
         console.log(err)
@@ -13,7 +13,7 @@ export const signup = createAsyncThunk('auth/signup', async({FirstName, LastName
 
 export const signin = createAsyncThunk('auth/signin', async({Email, Password}, thunkAPI) =>{
     try{
-        const res = await axios.post('http://localhost:8080/signin', {Email, Password})
+        const res = await axios.post(`${process.env.REACT_APP_API}/signin`, {Email, Password})
         return res.data
     }catch (err){
         return thunkAPI.rejectWithValue(err.response.data)

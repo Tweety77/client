@@ -1,4 +1,3 @@
-import '../index.css';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { signin } from '../store/authSlice';
@@ -22,13 +21,13 @@ function Authorization() {
     }
     
     return(
-        <form className="Form2" onSubmit={submitHandler}>
-        <input type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required></input>
-        <input type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required></input>
-        <button type='submit' className="signButton">Log in</button>
+        <form className="flex flex-col" onSubmit={submitHandler}>
+        <input className="reg-button" type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required></input>
+        <input className="reg-button" type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required></input>
+        <button className="reg-button bg-blue-600 text-white font-bold hover:bg-blue-500 text-xl" type='submit'>Log in</button>
         {error ? <p>{error}</p>: null}
-        {user ? <Navigate to='/' replace={true} />: null}
+        {user ? <Navigate to='/posts' replace={true} />: null}
         </form>
 )}
 
-export default Authorization;
+export default Authorization; 

@@ -1,75 +1,42 @@
-import '../index.css';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import crossicon from '../images/Crossicon.png';
-import avatar from "../images/avatar.jpg";
+import Post from "../components/post.js";
 
-function Home() {
-  const [posts, setPosts] = useState([])
-  const [error, setError] =useState(null)
+function Posts() {
   const userId = useSelector((state) => state.auth.userId)
   const [textarea, setTextarea] = useState('')
   let [isOpen, setIsOpen] = useState(false) 
-  const loggedIn = useSelector((state) => state.auth.isLoggedIn)
+  const redirect = () => setIsOpen(prevState => !prevState)
 
-  function redirect(){
-    setIsOpen(prevState => !prevState)
-  }
-
-  function submitHandler (e) {
-    axios.post('http://localhost:8080/createpost', {text: textarea, userId: userId})
-    .then((data) =>{
+  const submitHandler = () => {
+    axios.post(`${process.env.REACT_APP_API}/createpost`, {text: textarea, userId: userId})
+    .then(() =>{
       setTextarea('')
     })
   }
 
-  useEffect(() =>{
-    axios.get('http://localhost:8080/getposts')
-    .then(res =>{
-      let publications = []
-      res.data.forEach(post => publications.push(post))
-      setPosts(publications)
-      setError(null)  
-    })
-    .catch(err => setError('Couldn`t display posts'))
-  })
-
   return (
-    <div className='cont'>
-      <div className='posts'>
-        {loggedIn ? 
-          <button type='button' className='signButton' onClick={redirect}>Create Post</button>
-          :
-          null
-        }
+    <div className='flex min-h-screen bg-slate-100 justify-center pt-11'>
+      <div className='w-1/2 mt-2'>
+        <button type='button' className='bg-blue-600 text-white font-bold p-3 mt-3 hover:bg-blue-500 rounded' onClick={redirect}>Create Post</button>
         {isOpen && (
-            <div className='popUpPost'>
-              <div className='popHeader'>
+            <div className='fixed bg-white w-1/3 left-1/3 top-1/4 rounded border shadow text-lg pb-4'>
+              <div className='flex justify-between items-center border-b pl-1'>
                 <b>Create post</b>
-                <img className='logoNav' onClick={redirect} src={crossicon} alt='Cancel'></img>
+                <img className='size-10 m-1 rounded-full' onClick={redirect} src={crossicon} alt='Cancel'/>
               </div>
-              <form className="Form3">
-                <textarea  className='postArea' rows={6} placeholder="what's on your mind?"  value={textarea} onChange={(e) => setTextarea(e.target.value)} required />
-                <button type='button' onClick={() => {submitHandler(); redirect()}} className="signButton" id='postButton'>Post</button>
+              <form className="flex flex-col bg-white h-4/5">
+                <textarea className='text-2xl resize-none overflow-auto outline-none' rows={6} placeholder="what's on your mind?"  value={textarea} onChange={(e) => setTextarea(e.target.value)} required />
+                <button type='button' onClick={() => {submitHandler(); redirect()}} className="bg-blue-600 text-white font-bold p-3 hover:bg-blue-500 mt-auto">Post</button>
               </form>
             </div>
         )}
-        {posts.map((post) =>{
-          return <div className='postAll' key={post.postId}>
-            <div className='eachPost'>
-              <img className='logoNav' src={avatar} alt='avatar'></img>
-              <div className='eachUserDate'>
-                <p>{post.FirstName + " " + post.LastName}</p>
-                <p className='dateSmall'>{post.postDate}</p>
-              </div>
-            </div>
-            <p className='postValue'>{post.postValue}</p>
-            </div>
-        })}
-          {error ? <p>{error}</p>: null}
+        <Post/>
       </div>
     </div>
-)}
+  )
+}
 
-export default Home;  
+export default Posts;

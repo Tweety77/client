@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import {store} from './store/store';
 import { Provider } from 'react-redux';
 import Reg from "./react/Reg.js";
-import Home from "./react/posts.js";
+import Posts from "./react/posts.js";
 import Layout from "./components/layout.js";
 import UsersList from "./react/users";
 
@@ -14,9 +14,9 @@ function App() {
       <BrowserRouter>
           <Routes>
           <Route element={<Layout />}>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<Reg />} />
               <Route path='/users' element={<UsersList />} />
-              <Route path="/Reg" element={<Reg />} />
+              <Route path="/posts" element={<Posts />} />
           </Route>
           </Routes>
       </BrowserRouter>

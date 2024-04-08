@@ -1,28 +1,26 @@
-import '../index.css';
 import Registration from "./Registration.js";
 import Authorization from "./Authorization.js";
-import React, {useState} from "react";
+import React from "react";
 
 function Reg() {
     let [change, setChange] = React.useState(<Authorization />)
-    function redirect(){
-        setChange(prevState => !prevState)
-    }
+    const redirect = () => setChange(prevState => !prevState)
+
   return (
-<div className="cont" id='Reg'>
-        <div className="Greet">
-            <p className='title'>
+    <div className=" flex justify-evenly bg-slate-100 h-screen pt-48">
+        <div className="w-1/4">
+            <p className='text-4xl text-blue-600 font-bold'>
                 facebook
             </p>
-            <p>
+            <p className="text-2xl">
                 Feel free to share whatever you want with the world.
             </p>
         </div>
-        <div className='FormCont'>
-            <div className="Form">
+        <div className='w-1/4 divide-y-5'>
+            <div className="flex flex-col bg-white rounded-md shadow-lg mb-4">
                 {change ? <Registration /> : <Authorization />}
-                <div className="upperscore">
-                    <button className="logButton" onClick={redirect} >{change ? "Log in" : "Sign up"}</button>
+                <div className="flex my-5 pt-3 mx-5 justify-center border-t">
+                    <button className="text-white reg-button bg-green-500 hover:bg-green-400 font-bold w-40 text-xl" onClick={redirect} >{change ? "Log in" : "Sign up"}</button>
                 </div>
             </div>
             <p>Create an account, follow your friends and share your impressions.</p>
