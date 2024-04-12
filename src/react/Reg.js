@@ -3,7 +3,7 @@ import Authorization from "./Authorization.js";
 import React from "react";
 
 function Reg() {
-    let [change, setChange] = React.useState(<Authorization />)
+    const [change, setChange] = React.useState()
     const redirect = () => setChange(prevState => !prevState)
 
   return (
@@ -18,9 +18,9 @@ function Reg() {
         </div>
         <div className='w-1/4 divide-y-5'>
             <div className="flex flex-col bg-white rounded-md shadow-lg mb-4">
-                {change ? <Registration /> : <Authorization />}
+                {change ? <Authorization /> : <Registration />  }
                 <div className="flex my-5 pt-3 mx-5 justify-center border-t">
-                    <button className="text-white reg-button bg-green-500 hover:bg-green-400 font-bold w-40 text-xl" onClick={redirect} >{change ? "Log in" : "Sign up"}</button>
+                    <button className="btn-green" onClick={redirect} >{change ? "Sign up" : "Log in"}</button>
                 </div>
             </div>
             <p>Create an account, follow your friends and share your impressions.</p>

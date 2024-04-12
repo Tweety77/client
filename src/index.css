@@ -4,8 +4,24 @@
 
 @layer components{
 
-    .reg-button {
-        @apply mx-4 mt-3 text-lg border px-3 py-3 rounded focus:outline-none focus:border-blue-600
+    button{
+        @apply text-lg rounded px-5 py-3 text-white font-bold
+    }
+    
+    .btn-blue{
+        @apply bg-blue-600 hover:bg-blue-500
+    }
+
+    .btn-green{
+        @apply bg-green-500 hover:bg-green-400
+    }
+
+    .form-elem{
+        @apply mx-4 mt-3
+    }
+
+    input{
+        @apply border text-lg rounded px-3 py-3 focus:outline-none focus:border-blue-600
     }
 
     .nav-button {

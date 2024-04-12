@@ -16,7 +16,7 @@ function Registration() {
     const submitHandler = e => {
         e.preventDefault()
         dispatch(signup({FirstName: FirstName, LastName: LastName, Email: Email, Password: Password}))
-        .then((res) =>{
+        .then(() =>{
           setFirstName('')
           setLastName('')
           setEmail('')
@@ -27,11 +27,11 @@ function Registration() {
 
     return(
       <form className="flex flex-col" onSubmit={submitHandler}>
-      <input className="reg-button" type="text" placeholder="First name" value={FirstName} onChange={(e) => setFirstName(e.target.value)} required></input>
-      <input className="reg-button" type="text" placeholder="Last name" value={LastName} onChange={(e) => setLastName(e.target.value)} required></input>
-      <input className="reg-button" type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required></input>
-      <input className="reg-button" type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required></input>
-      <button className="reg-button bg-blue-600 text-white font-bold hover:bg-blue-500 text-xl" type='submit'>Sign up</button>
+      <input className="form-elem" type="text" placeholder="First name" value={FirstName} onChange={(e) => setFirstName(e.target.value)} required />
+      <input className="form-elem" type="text" placeholder="Last name" value={LastName} onChange={(e) => setLastName(e.target.value)} required />
+      <input className="form-elem" type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required />
+      <input className="form-elem" type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required />
+      <button className="btn-blue form-elem" type='submit'>Sign up</button>
       {error ? <p>{error}</p>: null}
       {user ? <Navigate to='/posts' replace={true} />: null}
       </form>
