@@ -1,18 +1,27 @@
-import avatar from "../images/avatar.jpg";
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+const avatar  = require ("../images/avatar.jpg");
 
-export default function Post() {
+interface post {
+  PostId: number;
+  FirstName: string;
+  LastName: string;
+  postDate: string;
+  postValue: string;
+  publications: string[];
+}
 
-      const [posts, setPosts] = useState([])
-      const [error, setError] =useState(null)
-    
+type err =  string | null
+
+
+const Post : React.FC = () => {
+
+      const [posts, setPosts] = useState<post[]>([])
+      const [error, setError] =useState<err>(null)
       useEffect(() =>{  
         axios.get(`${process.env.REACT_APP_API}/getposts`)
-        .then(res =>{
-          const publications = []
-          res.data.forEach(post => publications.push(post))
-          setPosts(publications)
+        .then ((res) =>{
+          setPosts(res.data)
           setError(null)
         })
         .catch(err => setError('Couldn`t display posts'))
@@ -34,3 +43,5 @@ export default function Post() {
       })
     )
 }
+
+export {Post}

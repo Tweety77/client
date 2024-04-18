@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { UseAppDispatch, UseAppSelector } from '../react/Hook';
 import { signin } from '../store/authSlice';
 import { Navigate } from 'react-router-dom';
 
-function Authorization() {
+const Authorization: React.FC = () => {
 
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const user = useSelector((state) => state.auth.user)
-    const error = useSelector((state) => state.auth.error)
-    const dispatch = useDispatch()
+    const user = UseAppSelector((state) => state.auth.user)
+    const dispatch = UseAppDispatch()
 
-    const submitHandler = e => {
+    const submitHandler : React.FormEventHandler<HTMLFormElement> = e => {
         e.preventDefault();
         dispatch(signin({Email: Email, Password: Password}))
         .then(() =>{
@@ -25,7 +24,6 @@ function Authorization() {
         <input className="form-elem" type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required />
         <input className="form-elem" type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required />
         <button className="btn-blue form-elem" type='submit'>Log in</button>
-        {error ? <p>{error}</p>: null}
         {user ? <Navigate to='/posts' replace={true} />: null}
         </form>
 )}

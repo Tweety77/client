@@ -1,11 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import logo from "../images/Logo.png";
-import avatar from "../images/avatar.jpg";
+import { UseAppSelector } from "../react/Hook";
+const logo = require ("../images/Logo.png");
+const avatar  = require ("../images/avatar.jpg");
 
-export default function Header() {
-    const user = useSelector((state) => state.auth.user)
+const Header: React.FC = () => {
+    const user = UseAppSelector((state) => state.auth.user)
 
     return (
         <header>
@@ -21,3 +21,5 @@ export default function Header() {
         </header>
     )
 }
+
+export {Header}

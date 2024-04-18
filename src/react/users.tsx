@@ -1,17 +1,23 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import avatar from "../images/avatar.jpg";
+const avatar = require ("../images/avatar.jpg");
 
-function UsersList() {
-  const [users, setUsers] = useState([])
-  const [error, setError] =useState(null)
+interface username {
+  idUser: number;
+  FirstName: string;
+  LastName: string;
+}
+
+type err =  string | null
+
+const UsersList: React.FC = () => {
+  const [users, setUsers] = useState<username[]>([])
+  const [error, setError] =useState<err>(null)
 
   useEffect(() =>{
     axios.get(`${process.env.REACT_APP_API}/getusers`)
-    .then(res =>{
-      const usernames = []
-      res.data.forEach(user => usernames.push(user))
-      setUsers(usernames)
+    .then ((res) =>{
+      setUsers(res.data)
       setError(null)
     })
     .catch(err => setError('Couldn`t display users'))
@@ -34,4 +40,4 @@ function UsersList() {
   );
 }
 
-export default UsersList;
+export {UsersList};
