@@ -7,8 +7,20 @@ import {Reg} from "./react/Reg";
 import {Posts} from "./react/posts";
 import {Layout} from "./components/layout";
 import {UsersList} from "./react/users";
+import { useEffect } from "react";
+import { signin } from './store/authSlice';
+import { UseAppDispatch } from './react/Hook';
 
 function App() {
+  const dispatch = UseAppDispatch()
+  
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem("user");
+    if (loggedInUser) {
+      const foundUser = JSON.parse(loggedInUser);
+      dispatch(signin({Password: foundUser.Password, Email: foundUser.Email}))
+    }
+  },[dispatch]);
 
   return (
       <BrowserRouter>

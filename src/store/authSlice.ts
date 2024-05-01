@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import axios from 'axios';
+import { AxiosError } from 'axios';
 
 interface signUp{
     FirstName: string,
@@ -13,22 +14,34 @@ interface signIn{
     Password: string
 }
 
-export const signup = createAsyncThunk<UserInfo, signUp, {rejectValue:string| unknown}>('auth/signup', async({FirstName, LastName, Email, Password}, {rejectWithValue}) =>{
+type KnownErr = {
+    message: string | null;
+}
+
+export const signup = createAsyncThunk<UserInfo, signUp, {rejectValue:KnownErr}>('auth/signup', async({FirstName, LastName, Email, Password}, {rejectWithValue}) =>{
     try{
         const res = await axios.post(`${process.env.REACT_APP_API}/signup`, {FirstName, LastName, Email, Password})
         return res.data
     }catch (err){
-        return rejectWithValue('Server error')
-    }
+        const error: AxiosError<KnownErr> = err as any;
+        if (!error.response) {
+          throw err;
+        }
+        return rejectWithValue(error.response.data);
+      }
 })
 
-export const signin = createAsyncThunk<UserInfo, signIn, {rejectValue:string| unknown}>('auth/signin', async({Email, Password}, {rejectWithValue}) =>{
+export const signin = createAsyncThunk<UserInfo, signIn, {rejectValue:KnownErr}>('auth/signin', async({Email, Password}, {rejectWithValue}) =>{
     try{
         const res = await axios.post(`${process.env.REACT_APP_API}/signin`, {Email, Password})
         return res.data
     }catch (err){
-        return rejectWithValue('Server error')
-    }
+        const error: AxiosError<KnownErr> = err as any;
+        if (!error.response) {
+          throw err;
+        }
+        return rejectWithValue(error.response.data);
+      }
 })
 
 
@@ -43,13 +56,15 @@ type UserInfo = {
     userId: string,
     isLoggedIn: boolean,
     loading: boolean,
+    error: string | null
 }
 
 const initialState: UserInfo = {
         user: '',
         userId: '',
         isLoggedIn: false,
-        loading: false
+        loading: false,
+        error: null
 }
 
 export const authSlice = createSlice({
@@ -60,6 +75,7 @@ export const authSlice = createSlice({
             state.user= ''
             state.isLoggedIn= false
             state.loading= false
+            localStorage.clear();
         }
     },
     extraReducers: (builder) => {
@@ -69,18 +85,36 @@ export const authSlice = createSlice({
                 state.userId = action.payload.userId
                 state.isLoggedIn = true
                 state.loading = false
+                state.error= null
             })
             .addCase(signup.pending, (state) => {
                 state.loading = true
+                state.error= null
+            })
+            .addCase(signup.rejected, (state, action) => {
+                state.loading = false
+                state.isLoggedIn = false
+                if (action.payload) {
+                    state.error = action.payload.message
+                  }
             })
             .addCase(signin.fulfilled, (state, action: PayloadAction<reducer>) => {
                 state.user = action.payload.user
                 state.userId = action.payload.userId
                 state.isLoggedIn = true
                 state.loading = false
+                state.error= null
             })
             .addCase(signin.pending, (state) => {
                 state.loading = true
+                state.error= null
+            })
+            .addCase(signin.rejected, (state, action) => {
+                state.loading = false
+                state.isLoggedIn = false
+                if (action.payload) {
+                    state.error = action.payload.message
+                  }
             })
     }
 })

@@ -25,7 +25,7 @@ const Post : React.FC = () => {
           setError(null)
         })
         .catch(err => setError('Couldn`t display posts'))
-      },[posts])
+      },[])
 
     return(
         posts.map((post) =>{

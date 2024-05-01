@@ -16,6 +16,7 @@ const Registration: React.FC = () => {
         e.preventDefault()
         dispatch(signup({FirstName: FirstName, LastName: LastName, Email: Email, Password: Password}))
         .then(() =>{
+          localStorage.setItem('user', JSON.stringify({Email: Email, Password: Password}))
           setFirstName('')
           setLastName('')
           setEmail('')

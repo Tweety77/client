@@ -21,7 +21,7 @@ const UsersList: React.FC = () => {
       setError(null)
     })
     .catch(err => setError('Couldn`t display users'))
-  },[users])
+  },[])
 
   return (
     <div className='flex min-h-screen bg-slate-100 justify-center pt-11'>
