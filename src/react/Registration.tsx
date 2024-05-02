@@ -1,22 +1,22 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { UseAppDispatch, UseAppSelector } from '../react/Hook';
 import { signup } from '../store/authSlice';
 import { Navigate } from 'react-router-dom';
 
-function Registration() {
+const Registration: React.FC = () => {
 
     const [FirstName, setFirstName] = useState('')
     const [LastName, setLastName] = useState('')
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const user = useSelector((state) => state.auth.user)
-    const error = useSelector((state) => state.auth.error)
-    const dispatch = useDispatch()
+    const user = UseAppSelector((state) => state.auth.user)
+    const dispatch = UseAppDispatch()
 
-    const submitHandler = e => {
+    const submitHandler : React.FormEventHandler<HTMLFormElement> = e => {
         e.preventDefault()
         dispatch(signup({FirstName: FirstName, LastName: LastName, Email: Email, Password: Password}))
         .then(() =>{
+          localStorage.setItem('user', JSON.stringify({Email: Email, Password: Password}))
           setFirstName('')
           setLastName('')
           setEmail('')
@@ -32,7 +32,6 @@ function Registration() {
       <input className="form-elem" type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required />
       <input className="form-elem" type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required />
       <button className="btn-blue form-elem" type='submit'>Sign up</button>
-      {error ? <p>{error}</p>: null}
       {user ? <Navigate to='/posts' replace={true} />: null}
       </form>
 )}

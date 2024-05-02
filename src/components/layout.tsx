@@ -1,11 +1,11 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Header from "./header";
-import SideBar from "./SideBar";
-import { useSelector } from "react-redux";
+import {Header} from "./header";
+import {SideBar} from "./SideBar";
+import { UseAppSelector } from "../react/Hook";
 
-export default function Layout() {
-    const loggedIn = useSelector((state) => state.auth.isLoggedIn)
+const Layout: React.FC = () => {
+    const loggedIn = UseAppSelector((state) => state.auth.isLoggedIn)
     
     return (
         <>
@@ -21,3 +21,5 @@ export default function Layout() {
         </>
     )
 }
+
+export {Layout}

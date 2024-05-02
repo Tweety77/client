@@ -1,11 +1,11 @@
 import axios from 'axios';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import crossicon from '../images/Crossicon.png';
-import Post from "../components/post.js";
+import { UseAppSelector } from '../react/Hook';
+import {Post} from "../components/post";
+const crossicon = require ('../images/Crossicon.png');
 
-function Posts() {
-  const userId = useSelector((state) => state.auth.userId)
+const Posts: React.FC = () => {
+  const userId = UseAppSelector((state) => state.auth.userId)
   const [textarea, setTextarea] = useState('')
   const [isOpen, setIsOpen] = useState(false) 
   const redirect = () => setIsOpen(prevState => !prevState)
@@ -40,4 +40,4 @@ function Posts() {
   )
 }
 
-export default Posts;
+export {Posts};

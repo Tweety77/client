@@ -1,23 +1,30 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { UseAppDispatch, UseAppSelector } from '../react/Hook';
 import { signin } from '../store/authSlice';
 import { Navigate } from 'react-router-dom';
 
-function Authorization() {
+type err =  string | null
+
+const Authorization: React.FC = () => {
 
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const user = useSelector((state) => state.auth.user)
-    const error = useSelector((state) => state.auth.error)
-    const dispatch = useDispatch()
+    const user = UseAppSelector((state) => state.auth.user)
+    const dispatch = UseAppDispatch()
+    const [error, setError] =useState<err>(null)
 
-    const submitHandler = e => {
+    const submitHandler : React.FormEventHandler<HTMLFormElement> = e => {
         e.preventDefault();
         dispatch(signin({Email: Email, Password: Password}))
         .then(() =>{
+          localStorage.setItem('user', JSON.stringify({Email: Email, Password: Password}))
           setEmail('')
           setPassword('')
+          setError(null)
         })
+        .catch((res)=> {res = setError(res.err)}
+
+        )
     }
     
     return(

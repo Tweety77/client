@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { UseAppDispatch } from "../react/Hook";
 import { logout } from "../store/authSlice";
-import profile from "../images/pflogo.png";
-import post from "../images/psticon.jpg";
-import logouticon from "../images/logouticon.png";
-import SideLink from "./sidelink";
+import {SideLink} from "./sidelink";
+const profile = require ("../images/pflogo.png");
+const post = require ("../images/psticon.jpg");
+const logouticon = require ("../images/logouticon.png");
 
-export default function SideBar() {
-    const dispatch = useDispatch()
+
+const SideBar : React.FC = () => {
+    const dispatch = UseAppDispatch()
     const [isOpen, setIsOpen] = useState(false)
     const redirect = () => setIsOpen(prevState => !prevState)
     const logoutclick = () =>{
@@ -20,7 +21,7 @@ export default function SideBar() {
         <div className='fixed w-1/12 top-14 text-zinc-700 text-2xl'>
             <SideLink path="/users" img={profile} imgAlt='profile-icon' post='Users'/>
             <SideLink path="/posts" img={post} imgAlt='posts-icon' post='Posts'/>
-            <SideLink onClick={redirect} img={logouticon} imgAlt='logout-icon' post='Log out'/>
+            <SideLink path="" onClick={redirect} img={logouticon} imgAlt='logout-icon' post='Log out'/>
             {isOpen && (
                     <div className="fixed left-1/3 w-1/3 bg-white text-center rounded border shadow py-5" >
                         <p>Are you sure you want to log out?</p>
@@ -35,3 +36,5 @@ export default function SideBar() {
         </div>
     )
 }
+
+export {SideBar}

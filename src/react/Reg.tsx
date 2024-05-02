@@ -1,9 +1,9 @@
-import Registration from "./Registration.js";
-import Authorization from "./Authorization.js";
+import Registration from "./Registration";
+import Authorization from "./Authorization";
 import React from "react";
 
-function Reg() {
-    const [change, setChange] = React.useState()
+const Reg: React.FC = () => {
+    const [change, setChange] = React.useState(true)
     const redirect = () => setChange(prevState => !prevState)
 
   return (
@@ -29,4 +29,4 @@ function Reg() {
   );
 }
 
-export default Reg;
+export {Reg};
