@@ -3,42 +3,32 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../store/authSlice";
 import profile from "../images/pflogo.png";
-import post from "../images/pstsicon.png";
+import post from "../images/psticon.jpg";
 import logouticon from "../images/logouticon.png";
+import SideLink from "./sidelink";
 
 export default function SideBar() {
     const dispatch = useDispatch()
-    let [isOpen, setIsOpen] = useState(false);
+    const [isOpen, setIsOpen] = useState(false)
     const redirect = () => setIsOpen(prevState => !prevState)
+    const logoutclick = () =>{
+        dispatch(logout()); 
+        redirect()
+    }
 
     return (
-        <div  className='fixed w-1/12 top-14 text-zinc-700 text-2xl'>
-            <Link to="/users">
-                <div className="nav-button">
-                    <img src={profile} className='size-10 m-1 mx-2 rounded-full' alt='profile-icon'/>
-                    <p>Users</p>
-                </div>
-            </Link>
-            <Link  to="/posts">
-                <div className="nav-button">
-                    <img src={post} className='size-10 m-1 mx-2 rounded-lg' alt='posts-icon'/>
-                    <p>Posts</p>
-                </div>
-            </Link>
-            <Link>
-                <div className="nav-button" onClick={redirect}>
-                    <img src={logouticon} className='size-10 m-1 mx-2 rounded-full' alt='logout-icon'/>
-                    <p>Log out</p>
-                </div>
-            </Link>
+        <div className='fixed w-1/12 top-14 text-zinc-700 text-2xl'>
+            <SideLink path="/users" img={profile} imgAlt='profile-icon' post='Users'/>
+            <SideLink path="/posts" img={post} imgAlt='posts-icon' post='Posts'/>
+            <SideLink onClick={redirect} img={logouticon} imgAlt='logout-icon' post='Log out'/>
             {isOpen && (
                     <div className="fixed left-1/3 w-1/3 bg-white text-center rounded border shadow py-5" >
                         <p>Are you sure you want to log out?</p>
                         <div className="flex justify-evenly pt-4">
                             <Link to="/">
-                                <button className="py-1 px-4 bg-blue-600 text-white hover:bg-blue-500" onClick={() => {dispatch(logout()); redirect()}}>Sure</button>
+                                <button className="btn-blue" onClick={logoutclick}>Sure</button>
                             </Link>
-                            <button className="py-1 px-4 bg-blue-600 text-white hover:bg-blue-500" onClick={redirect}>Cancel</button>
+                            <button className="btn-blue" onClick={redirect}>Cancel</button>
                         </div>
                     </div>
             )}

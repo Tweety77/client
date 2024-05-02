@@ -22,9 +22,9 @@ function Authorization() {
     
     return(
         <form className="flex flex-col" onSubmit={submitHandler}>
-        <input className="reg-button" type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required></input>
-        <input className="reg-button" type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required></input>
-        <button className="reg-button bg-blue-600 text-white font-bold hover:bg-blue-500 text-xl" type='submit'>Log in</button>
+        <input className="form-elem" type="email" placeholder="Email (login)" value={Email} onChange={(e) => setEmail(e.target.value)} required />
+        <input className="form-elem" type="password" placeholder="Password" value={Password} onChange={(e) => setPassword(e.target.value)} required />
+        <button className="btn-blue form-elem" type='submit'>Log in</button>
         {error ? <p>{error}</p>: null}
         {user ? <Navigate to='/posts' replace={true} />: null}
         </form>
